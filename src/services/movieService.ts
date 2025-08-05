@@ -1,9 +1,16 @@
 import axios from "axios";
 import { type Movie } from "../types/movie";
 
+interface MovieSearchResponse {
+  page: number;
+  results: Movie[];
+  total_results: number;
+  total_pages: number;
+}
+
 export default async function fetchMovies(query: string): Promise<Movie[]> {
-  const respons = await axios.get(
-    "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1",
+  const response = await axios.get<MovieSearchResponse>(
+    `https://api.themoviedb.org/3/search/movie`,
     {
       params: {
         query,
@@ -18,5 +25,5 @@ export default async function fetchMovies(query: string): Promise<Movie[]> {
     }
   );
 
-  return respons.data.results as Movie[];
+  return response.data.results;
 }

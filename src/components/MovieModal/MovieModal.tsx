@@ -3,12 +3,12 @@ import css from "./MovieModal.module.css";
 import { type Movie } from "../../types/movie";
 import { useEffect } from "react";
 
-interface ModalProps {
+interface MovieModalProps {
   onClose: () => void;
   movie: Movie;
 }
 
-export default function MovieModal({ onClose, movie }: ModalProps) {
+export default function MovieModal({ onClose, movie }: MovieModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -23,9 +23,11 @@ export default function MovieModal({ onClose, movie }: ModalProps) {
     };
 
     document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
     };
   }, [onClose]);
 
@@ -45,7 +47,7 @@ export default function MovieModal({ onClose, movie }: ModalProps) {
           &times;
         </button>
         <img
-          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
           alt={movie.title}
           className={css.image}
         />

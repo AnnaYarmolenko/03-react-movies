@@ -21,7 +21,7 @@ export default function App() {
       setLoading(true);
       setError(false);
       const results = await fetchMovies(newQuery);
-
+      console.log(import.meta.env.VITE_TMDB_TOKEN);
       if (results.length === 0) {
         toast.error("No movies found for your request.");
       }
